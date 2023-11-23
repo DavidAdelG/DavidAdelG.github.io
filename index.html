@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DavidAdelG</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="./Assets/favicon.ico">
+  <style>
+    /* Meh */
+    @font-face {
+      font-family: 'Opificio Bold Round';
+      src: url('./Assets/opificio_bold_rounded.ttf') format('truetype');
+    }
+
+    @font-face {
+      font-family: 'Opificio Round';
+      src: url('./Assets/opificio_rounded.ttf') format('truetype');
+    }
+
+    body {
+      background-color: #202436;
+      color: #f4f2f4;
+      font-family: 'Opificio Round', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    header {
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1,h2 {
+      font-family: 'Opificio Bold Round', Arial, sans-serif;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    nav ul li {
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    nav ul li a {
+      color: #f4f2f4;
+      text-decoration: none;
+      padding: 5px;
+      position: relative;
+      display: inline-block;
+      transition: color 0.3s ease;
+    }
+
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: #4ba47e;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      transform: translateY(-2px);
+    }
+
+    nav ul li a:hover::after {
+      transform: scaleX(1);
+    }
+
+    section {
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .section-divider {
+      width: 100%;
+      height: 2px;
+      background-color: #4ba47e;
+      margin: 5px 0;
+    }
+
+    .portfolio {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .portfolio-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #323450;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.item-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px; /* Updated width */
+  height: 100px; /* Updated height */
+  border-radius: 50%;
+  background-color: #4ba47e;
+  margin-bottom: 10px;
+  transition: background-color 0.3s ease; /* Added transition for color change */
+}
+
+.item-header img {
+  width: 80px; 
+  height: 80px; 
+  border-radius: 50%;
+  transition: transform 0.3s ease; /* Added transition for scaling */
+}
+
+.portfolio-item:hover .item-header {
+  background-color: #f4f2f4; /* Color change on hover */
+}
+
+.portfolio-item:hover .item-header img {
+  transform: scale(1.1); /* Scale up on hover */
+}
+
+.portfolio-item h3 {
+  font-size: 20px;
+  margin: 0;
+  margin-bottom: 10px;
+  color: #4ba47e;
+}
+
+.portfolio-item p {
+  margin: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.portfolio-item a {
+  color: #4ba47e;
+  font-family: 'Opificio Bold Round', Arial, sans-serif;
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+  transition: transform 0.3s ease;
+  border: 2px solid #4ba47e;
+  border-radius: 4px;
+  padding: 8px 12px;
+  margin-top: 10px;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.portfolio-item a::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: #4ba47e;
+  transition: width 0.3s ease;
+  z-index: -1;
+}
+
+.portfolio-item a:hover {
+  transform: translateY(-2px);
+  color: #f4f2f4;
+}
+
+.portfolio-item a:hover::after {
+  width: 100%;
+}
+    footer {
+      font-size: 10px;
+      color: #f4f2f4;
+      padding: 3px;
+      text-align: center;
+      font-family: 'Opificio Bold Round', Arial, sans-serif;
+    }
+
+    footer p {
+      margin: 0;
+    }
+
+    #about p {
+      font-size: 16px;
+      line-height: 1.5;
+      margin-bottom: 10px;
+      word-wrap: break-word;
+      font-family: 'Opificio Round', Arial, sans-serif;
+    }
+
+    #about div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #about div img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 20px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+      border: 6px solid #4ba47e;
+      transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), border-color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    #about div img:hover {
+      transform: scale(1.1);
+      border-color: #f4f2f4;
+    }
+
+    .contact-icons {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .contact-icons a {
+      color: #f4f2f4;
+      font-size: 24px;
+      margin: 0 10px;
+      text-decoration: none;
+      transition: transform 0.3s ease;
+    }
+
+    .contact-icons a:hover {
+      transform: scale(1.2);
+    }
+
+    /* Responsive Styles */
+    @media screen and (min-width: 600px) {
+      body {
+        transform: scale(1.5);
+        transform-origin: top center;
+        overflow-x: hidden;
+      }
+      #about p {
+              max-width: 50%;
+      }
+    }
+
+    @media screen and (max-width: 599px) {
+      body {
+        transform: none;
+      }
+
+      .container {
+        overflow-x: auto;
+      }
+       #about p {
+              max-width: 90%;
+      }
+    }
+  </style>
+  <script src="https://kit.fontawesome.com/f9672d566e.js" crossorigin="anonymous"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var scrollLinks = document.querySelectorAll('nav ul li a[href^="#"]');
+      for (var i = 0; i < scrollLinks.length; i++) {
+        scrollLinks[i].addEventListener('click', smoothScroll);
+      }
+  
+      function smoothScroll(e) {
+        e.preventDefault();
+        var targetId = this.getAttribute('href');
+        var targetElement = document.querySelector(targetId);
+        var targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+        var startPosition = window.pageYOffset;
+        var distance = targetPosition - startPosition;
+        var duration = 800; // Adjust scrolling speed here
+        var start = null;
+  
+        function animation(currentTime) {
+          if (start === null) start = currentTime;
+          var timeElapsed = currentTime - start;
+          var scrollY = ease(timeElapsed, startPosition, distance, duration);
+          window.scrollTo(0, scrollY);
+          if (timeElapsed < duration) requestAnimationFrame(animation);
+        }
+  
+        function ease(t, b, c, d) {
+          // Easing function: easeInOutCubic
+          t /= d / 2;
+          if (t < 1) return (c / 2) * t * t * t + b;
+          t -= 2;
+          return (c / 2) * (t * t * t + 2) + b;
+        }
+  
+        requestAnimationFrame(animation);
+      }
+    });
+  </script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>@DavidAdelG</h1>
+      <nav>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <section id="about">
+      <h2>About Me</h2>
+      <div>
+        <img src="./Assets/PP.jpg" alt="@DavidAdelG">
+        <p>I am a passionate Computer Science student at Alshorouk Academy,
+           driven by a deep interest in the latest advancements in technology.
+           With a strong foundation in programming and a desire to continuously learn,
+           I aspire to contribute to innovative projects that positively impact society.</p>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section id="portfolio">
+      <h2>Portfolio</h2>
+  <div class="portfolio">
+    <div class="portfolio-item">
+      <div class="item-header">
+        <img src="./Assets/M7aga3ady.png" alt="M7aga3ady">
+      </div>
+      <div class="item-content">
+        <h3>M7aga3ady</h3>
+        <p>My true Passion</p>
+        <p>احنا 3 اصحاب قررنا نعمل بودكاست
+          عشان كل بودكاست ناجح بيكون فيه 3 🤷‍♂️ بس كده
+          تقدروا تسمعونا من هنا 👇</p>
+        <a href="https://linktr.ee/M7aga3ady" target="_blank">View</a>
+      </div>
+    </div>
+    <div class="portfolio-item">
+      <div class="item-header">
+        <img src="./Assets/Shortcut.png" alt="Shortcut">
+      </div>
+      <div class="item-content">
+        <h3>Share With TimeStamp iPhone Shortcut</h3>
+        <p>Copy YouTube video URL with current time for easy sharing and bookmarking.</p>
+        <a href="https://routinehub.co/shortcut/15345/" target="_blank">View</a>
+      </div>
+    </div>
+    <div class="portfolio-item">
+      <div class="item-header">
+        <img src="./Assets/Fire.png" alt="Fire">
+      </div>
+      <div class="item-content">
+        <h3>Instagram Effect "🔥مُثير" </h3>
+        <p>You're either a "مُثير" or a "مُثير للشفقة"</p>
+        <a href="https://www.instagram.com/ar/930790160971849/" target="_blank">View</a>
+      </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <div class="contact-icons">
+        <a href="https://twitter.com/DavidAdelG" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="https://instagram.com/DavidAdelG" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://github.com/DavidAdelG" target="_blank"><i class="fab fa-github"></i></a>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2023 @DavidAdelG. All rights reserved.</p>
+    </footer>
+  </div>
+</body>
+</html>

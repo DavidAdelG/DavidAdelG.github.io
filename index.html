@@ -103,7 +103,8 @@
       margin-bottom: 30px;
     }
 
-    .portfolio-item {
+
+.portfolio-item {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -112,33 +113,39 @@
   padding: 20px;
   border-radius: 8px;
   margin-bottom: 20px;
+  max-width: 480px; /* Set a fixed width */
 }
+
 
 .item-header {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100px; /* Updated width */
-  height: 100px; /* Updated height */
+  width: 80px; /* Adjusted width */
+  height: 80px; /* Updated height */
   border-radius: 50%;
   background-color: #4ba47e;
   margin-bottom: 10px;
-  transition: background-color 0.3s ease; /* Added transition for color change */
+  transition: background-color 0.3s ease;
 }
 
 .item-header img {
-  width: 80px; 
-  height: 80px; 
+  width: 60px; /* Adjusted width */
+  height: 60px; /* Adjusted height */
   border-radius: 50%;
-  transition: transform 0.3s ease; /* Added transition for scaling */
+  transition: transform 0.3s ease;
+}
+
+.portfolio-item .item-content {
+  width: 100%; /* Adjusted width to match header */
 }
 
 .portfolio-item:hover .item-header {
-  background-color: #f4f2f4; /* Color change on hover */
+  background-color: #f4f2f4;
 }
 
 .portfolio-item:hover .item-header img {
-  transform: scale(1.1); /* Scale up on hover */
+  transform: scale(1.1);
 }
 
 .portfolio-item h3 {
@@ -274,7 +281,69 @@
       }
     }
   </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://kit.fontawesome.com/f9672d566e.js" crossorigin="anonymous"></script>
+  <script>
+    $(document).ready(function() {
+       // Fetch GitHub projects
+       $.getJSON("https://api.github.com/users/DavidAdelG/repos?sort=updated&direction=desc", function(data) {
+         data.forEach(function(project) {
+           if (!project.fork) { // To exclude forked repositories
+             $("#github-projects").append(
+               `<div class="portfolio-item">
+                 <div class="item-header">
+                   <img src="${project.owner.avatar_url}" alt="${project.name}">
+                 </div>
+                 <div class="item-content">
+                   <h3>${project.name}</h3>
+                   <p>${project.description}</p>
+                   <a href="${project.html_url}" target="_blank">View</a>
+                 </div>
+               </div>`
+             );
+           }
+         });
+         
+         // Fetch and display portfolio items
+         var portfolioItems = [
+           {
+             image: "./Assets/M7aga3ady.png",
+             title: "M7aga3ady",
+             description: "احنا 3 اصحاب قررنا نعمل بودكاست عشان كل بودكاست ناجح بيكون فيه 3",
+             link: "https://linktr.ee/M7aga3ady"
+           },
+           {
+             image: "./Assets/Shortcut.png",
+             title: "Share With TimeStamp iPhone Shortcut",
+             description: "Copy YouTube video URL with current time for easy sharing and bookmarking.",
+             link: "https://routinehub.co/shortcut/15345/"
+           },
+           {
+             image: "./Assets/Fire.png",
+             title: "Instagram Effect \"🔥مُثير\"",
+             description: "You're either a \"مُثير\" or a \"مُثير للشفقة\"",
+             link: "https://www.instagram.com/ar/930790160971849/"
+           }
+         ];
+
+         portfolioItems.forEach(function(item) {
+           $("#portfolio").append(
+             `<div class="portfolio-item">
+               <div class="item-header">
+                 <img src="${item.image}" alt="${item.title}">
+               </div>
+               <div class="item-content">
+                 <h3>${item.title}</h3>
+                 <p>${item.description}</p>
+                 <a href="${item.link}" target="_blank">View</a>
+               </div>
+             </div>`
+           );
+         });
+       });
+    });
+</script>
+
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       var scrollLinks = document.querySelectorAll('nav ul li a[href^="#"]');
@@ -320,6 +389,7 @@
       <nav>
         <ul>
           <li><a href="#about">About</a></li>
+          <li><a href="#github">GitHub Projects</a></li>
           <li><a href="#portfolio">Portfolio</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
@@ -339,42 +409,16 @@
     </section>
 
     <div class="section-divider"></div>
-
+    <section id="github">
+      <h2>github Projects</h2>
+      <div id="github-projects">
+         <!-- GitHub projects will be displayed here -->
+      </div>
+     </section>
+     <div class="section-divider"></div>
     <section id="portfolio">
       <h2>Portfolio</h2>
   <div class="portfolio">
-    <div class="portfolio-item">
-      <div class="item-header">
-        <img src="./Assets/M7aga3ady.png" alt="M7aga3ady">
-      </div>
-      <div class="item-content">
-        <h3>M7aga3ady</h3>
-        <p>My true Passion</p>
-        <p>احنا 3 اصحاب قررنا نعمل بودكاست
-          عشان كل بودكاست ناجح بيكون فيه 3 🤷‍♂️ بس كده
-          تقدروا تسمعونا من هنا 👇</p>
-        <a href="https://linktr.ee/M7aga3ady" target="_blank">View</a>
-      </div>
-    </div>
-    <div class="portfolio-item">
-      <div class="item-header">
-        <img src="./Assets/Shortcut.png" alt="Shortcut">
-      </div>
-      <div class="item-content">
-        <h3>Share With TimeStamp iPhone Shortcut</h3>
-        <p>Copy YouTube video URL with current time for easy sharing and bookmarking.</p>
-        <a href="https://routinehub.co/shortcut/15345/" target="_blank">View</a>
-      </div>
-    </div>
-    <div class="portfolio-item">
-      <div class="item-header">
-        <img src="./Assets/Fire.png" alt="Fire">
-      </div>
-      <div class="item-content">
-        <h3>Instagram Effect "🔥مُثير" </h3>
-        <p>You're either a "مُثير" or a "مُثير للشفقة"</p>
-        <a href="https://www.instagram.com/ar/930790160971849/" target="_blank">View</a>
-      </div>
       </div>
     </section>
 

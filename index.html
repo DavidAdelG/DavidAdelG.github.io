@@ -22,6 +22,7 @@
       font-family: 'Opificio Round', Arial, sans-serif;
       margin: 0;
       padding: 0;
+      
     }
 
     .container {
@@ -285,9 +286,12 @@
   <script src="https://kit.fontawesome.com/f9672d566e.js" crossorigin="anonymous"></script>
   <script>
     $(document).ready(function() {
-       // Fetch GitHub projects
-       $.getJSON("https://api.github.com/users/DavidAdelG/repos?sort=updated&direction=desc", function(data) {
-         data.forEach(function(project) {
+ $.getJSON("https://api.github.com/users/DavidAdelG/repos?sort=updated&direction=desc", function(data) {
+    const filteredData = data.filter(function(project) {
+      return project.name !== 'DavidAdelG' && project.name !== 'DavidAdelG.github.io';
+    });
+
+    filteredData.forEach(function(project){
            if (!project.fork) { // To exclude forked repositories
              $("#github-projects").append(
                `<div class="portfolio-item">
@@ -389,7 +393,7 @@
       <nav>
         <ul>
           <li><a href="#about">About</a></li>
-          <li><a href="#github">GitHub Projects</a></li>
+          <li><a href="#github">GitHub</a></li>
           <li><a href="#portfolio">Portfolio</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
@@ -410,7 +414,7 @@
 
     <div class="section-divider"></div>
     <section id="github">
-      <h2>github Projects</h2>
+      <h2>GitHub Projects</h2>
       <div id="github-projects">
          <!-- GitHub projects will be displayed here -->
       </div>
@@ -419,6 +423,7 @@
     <section id="portfolio">
       <h2>Portfolio</h2>
   <div class="portfolio">
+             <!-- Side projects will be displayed here -->
       </div>
     </section>
 
